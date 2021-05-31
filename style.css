@@ -1,0 +1,161 @@
+:root{
+    --bg-color-dark-mode: #011935f6;
+    --text-color-dark-mode: #62e40be0;
+    --bg-color-normal-mode: #0001;
+    --text-color-normal-mode: #0008;
+    --ball-color-dark-mode: #2f5e10e0;
+    --ball-color-normal-mode: #635f5ff1;
+    --header-text-color: #3AF;
+}
+
+body{
+    margin: 0;
+    box-sizing: border-box;
+}
+
+main{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.header-title{
+    color: var(--header-text-color);
+}
+
+/** Adding a relative position for the container of the checkbox, and that will help me to place children
+*/
+.checkbox-container{
+    position: relative;
+}
+
+/* If I'm honest, Checkbox can't be customed. So, I'm going to play with the opacity to mask it, and create my on checkbox with the CSS property <content> with the CSS pseudo-classes ::after and ::before
+*/
+[type="checkbox"]{
+    position: absolute;
+    left: 1.6em;
+    opacity: 0.01;
+}
+
+[type="checkbox"] + label{
+    position: relative;
+    font-size: 1.2em;
+    font-weight: bold;
+    padding-left: 3em;
+}
+
+/* Here I create my custom checkbox, by giving width and height and applies some CSS properties like border and border-radius
+*/
+[type="checkbox"]:checked + label::before,
+[type="checkbox"]:not(:checked) + label::before{
+    content: '';
+    width: 48px;
+    height: 20px;
+    border: 1px solid black;
+    border-radius: 1.2em;
+    position: absolute;
+    top: 0;
+    left: 0;
+    background-color: var(--bg-color-dark-mode);
+}
+
+/* When checkbox is not Checked, I change the background color */
+[type="checkbox"]:not(:checked) + label::before{
+    background-color: var(--bg-color-normal-mode);
+}
+
+[type="checkbox"]:checked + label::after,
+[type="checkbox"]:not(:checked) + label::after{
+    content: 'yes';
+    position: absolute;
+    top: 0;
+    left: 4px;
+    color: var(--text-color-dark-mode);
+    font-size: .9em;
+    animation-name: fadeOut1;
+    animation-duration: 500ms;
+}
+
+[type="checkbox"]:not(:checked) + label::after{
+    content: 'no';
+    color: var(--text-color-normal-mode);
+    left: 26px;
+    animation-name: fadeOut2;
+    animation-duration: 500ms;
+}
+
+[type="checkbox"]:checked + label .custom::before,
+[type="checkbox"]:not(:checked) + label .custom::before{
+    content: '';
+    background-color: var(--ball-color-dark-mode);
+    width: 19px;
+    height: 19px;
+    border-radius: 50%;
+    position: absolute;
+    top: 1px;
+    left: 29px;
+    animation-name: slideLeft;
+    animation-duration: 500ms;
+}
+
+[type="checkbox"]:not(:checked) + label .custom::before{
+    background-color: var(--ball-color-normal-mode);
+    left: 3px;
+    animation-name: slideRight;
+    animation-duration: 500ms;
+}
+
+.contact{
+    position: relative;
+    top: 2em;
+}
+
+h3{
+    text-align: center;
+    opacity: 0.7;
+}
+
+h3 a{
+    color: #000;
+    text-decoration: none;
+}
+
+h3 a:hover{
+    text-decoration: underline;
+}
+
+@keyframes  slideRight{
+    0%{
+        left: 29px;
+    }
+    100%{
+        left: 3px;
+    }
+}
+
+@keyframes slideLeft {
+    0%{
+        left: 3px;
+    }
+    100%{
+        left: 29px;
+    }
+}
+
+@keyframes fadeOut1 {
+    0%{
+        opacity: 0;
+    }
+    100%{
+        opacity: 1;
+    }
+}
+
+@keyframes fadeOut2 {
+    0%{
+        opacity: 0;
+    }
+    100%{
+        opacity: 1;
+    }
+}
